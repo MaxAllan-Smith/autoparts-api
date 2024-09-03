@@ -52,8 +52,8 @@ router.get('/user/:id', async (req, res) => {
     }
 });
 
-// GET /users/:username - Find user by username
-router.get('/user/:username', async (req, res) => {
+// GET /user/username/:username - Find user by username
+router.get('/user/username/:username', async (req, res) => {
     try {
         const username = req.params.username;
 
@@ -73,7 +73,6 @@ router.get('/user/:username', async (req, res) => {
         res.status(500).json({ error: 'Server Error: An error occurred while fetching the user' });
     }
 });
-
 
 // Delete a user by ID
 router.delete('/user/:id', async (req, res) => {
