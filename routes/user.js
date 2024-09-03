@@ -52,6 +52,22 @@ router.get('/user/:id', async (req, res) => {
     }
 });
 
+router.get('/user/:username', async (req, res) => {
+    try {
+        const username = req.params.username;
+
+        const user = await User.findOne({ username: username });
+
+        if (user) {
+            res.status(200).send(user);
+        } else {
+            res.status(404).send({ message: 'User Not Found' });
+        }
+    } catch (error) {
+        res.status(500).send({ error: `Server Error: ${error.message}` });
+    }
+})
+
 // Delete a user by ID
 router.delete('/user/:id', async (req, res) => {
     try {
