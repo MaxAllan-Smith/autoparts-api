@@ -25,7 +25,7 @@ router.put('/user/:id', async (req, res) => {
         }
         res.send(user);
     } catch (error) {
-        res.status(400).send({ error: error.message });
+        res.status(400).send({ error: `Server Error: ${error.message}` });
     }
 });
 
@@ -35,7 +35,7 @@ router.get('/users', async (req, res) => {
         const users = await User.find();
         res.status(200).send(users);
     } catch (error) {
-        res.status(500).send({ error: 'An error occurred while fetching users' });
+        res.status(500).send({ error: `Server Error: ${error.message}` });
     }
 });
 
@@ -48,7 +48,7 @@ router.get('/user/:id', async (req, res) => {
         }
         res.status(200).send(user);
     } catch (error) {
-        res.status(500).send({ error: 'An error occurred while fetching the user' });
+        res.status(500).send({ error: `Server Error: ${error.message}` });
     }
 });
 
@@ -77,7 +77,7 @@ router.delete('/user/:id', async (req, res) => {
         }
         res.status(200).send({ message: 'User deleted successfully' });
     } catch (error) {
-        res.status(500).send({ error: 'An error occurred while deleting the user' });
+        res.status(500).send({ error: `Server Error: ${error.message}` });
     }
 });
 
