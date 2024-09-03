@@ -52,21 +52,28 @@ router.get('/user/:id', async (req, res) => {
     }
 });
 
+// GET /users/:username - Find user by username
 router.get('/user/:username', async (req, res) => {
     try {
         const username = req.params.username;
 
+        // Query the database by username, not by _id
         const user = await User.findOne({ username: username });
 
-        if (user) {
-            res.status(200).send(user);
-        } else {
-            res.status(404).send({ message: 'User Not Found' });
+        if (!user) {
+            // If no user is found, return a 404 error
+            return res.status(404).json({ error: 'User not found' });
         }
+
+        // If user is found, return the user object
+        res.status(200).json(user);
     } catch (error) {
-        res.status(500).send({ error: `Server Error: ${error.message}` });
+        // Log the error and return a 500 error with a specific message
+        console.error('Error fetching user:', error);
+        res.status(500).json({ error: 'Server Error: An error occurred while fetching the user' });
     }
-})
+});
+
 
 // Delete a user by ID
 router.delete('/user/:id', async (req, res) => {
